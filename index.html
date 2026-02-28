@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friður — Peace, Beauty &amp; the Best Way to Experience Iceland</title>
+<meta name="description" content="Friður is the AI-powered travel companion built exclusively for Iceland.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,200;1,9..144,300;1,9..144,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  /* Dark hero */
+  --void:#030A0A;--teal:#2DD4BF;--green:#34D399;--blue:#22D3EE;--purple:#A78BFA;
+  /* M3 Light surface system */
+  --surface:#FFFBF5;
+  --surface-1:#F5F0EA;
+  --surface-2:#EDE8E1;
+  --surface-3:#E5E0D8;
+  --surface-container:#F0EBE4;
+  --surface-container-high:#E8E3DC;
+  --surface-container-highest:#E0DBD3;
+  --on-surface:#1C1B1F;
+  --on-surface-var:#49454F;
+  --outline:#7A7579;
+  --outline-var:#CBC4CF;
+  --primary:#0D6B5E;
+  --primary-container:#A7F3EC;
+  --on-primary-container:#00201C;
+  --secondary:#4A635E;
+  --secondary-container:#CCE8E2;
+  --tertiary:#456179;
+  --tertiary-container:#CCE5FF;
+  --inverse-surface:#313030;
+  --shadow:rgba(0,0,0,.08);
+  --shadow-md:rgba(0,0,0,.12);
+}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--on-surface);font-family:'DM Sans',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ══════ AURORA HERO ZONE ══════ */
+.hero-zone{
+  position:relative;
+  background:var(--void);
+  min-height:100vh;
+  overflow:hidden;
+}
+
+.aurora-sys{position:absolute;inset:0;pointer-events:none}
+.a-layer{position:absolute;width:100%;height:100%;transition:transform .05s linear}
+.a-blob{position:absolute;border-radius:50%;filter:blur(110px);opacity:0;animation:aBr 12s ease-in-out infinite}
+.a-layer[data-s="0.2"] .a-blob:nth-child(1){width:900px;height:340px;background:linear-gradient(135deg,#0EA5A5,#34D399 45%,transparent);top:-8%;left:5%;animation-duration:16s}
+.a-layer[data-s="0.2"] .a-blob:nth-child(2){width:700px;height:280px;background:linear-gradient(135deg,#22D3EE,#2DD4BF 55%,transparent);top:2%;right:-10%;animation-delay:4s;animation-duration:18s}
+.a-layer[data-s="0.4"] .a-blob:nth-child(1){width:600px;height:200px;background:linear-gradient(135deg,#A78BFA,#22D3EE 50%,transparent);top:5%;left:30%;animation-delay:2s;animation-duration:14s}
+.a-layer[data-s="0.6"] .a-blob:nth-child(1){width:400px;height:150px;background:linear-gradient(135deg,#F472B6,#A78BFA 50%,transparent);top:8%;left:50%;animation-delay:8s;animation-duration:12s}
+@keyframes aBr{0%,100%{opacity:.12;transform:translateX(0) scaleX(1)}25%{opacity:.24;transform:translateX(30px) scaleX(1.15)}50%{opacity:.18;transform:translateX(-20px) scaleX(.95)}75%{opacity:.3;transform:translateX(15px) scaleX(1.08)}}
+
+.stars{position:absolute;inset:0;pointer-events:none}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twink 5s ease-in-out infinite}
+@keyframes twink{0%,100%{opacity:.12}50%{opacity:.7}}
+
+.hero-content{
+  position:relative;z-index:2;
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:4rem 2rem;
+}
+
+.h-badge{display:inline-flex;align-items:center;gap:10px;padding:10px 24px;border:1px solid rgba(255,255,255,.15);border-radius:100px;font-size:.78rem;color:rgba(255,255,255,.6);letter-spacing:.1em;text-transform:uppercase;margin-bottom:3rem;opacity:0;animation:fu 1s ease .2s forwards}
+.h-badge .dot{width:6px;height:6px;background:var(--teal);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+.hero-content h1{font-family:'Fraunces',serif;font-size:clamp(4.5rem,13vw,10rem);font-weight:200;letter-spacing:-.03em;line-height:.85;margin-bottom:1rem;color:#fff;opacity:0;animation:fu 1s ease .4s forwards}
+.hero-content h1 em{font-style:italic;font-weight:300;background:linear-gradient(135deg,var(--teal),var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.h-pron{font-family:'Fraunces',serif;font-size:1.15rem;color:rgba(255,255,255,.3);font-style:italic;font-weight:200;letter-spacing:.12em;margin-bottom:2.5rem;opacity:0;animation:fu 1s ease .6s forwards}
+.h-sub{font-size:1.2rem;color:rgba(255,255,255,.55);max-width:560px;line-height:1.8;font-weight:300;margin-bottom:3.5rem;opacity:0;animation:fu 1s ease .8s forwards}
+
+.h-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;opacity:0;animation:fu 1s ease 1s forwards}
+.btn-hero{display:inline-flex;align-items:center;gap:10px;padding:16px 38px;background:var(--teal);color:var(--void);font-weight:500;font-size:1rem;border-radius:100px;text-decoration:none;transition:all .4s}
+.btn-hero:hover{transform:translateY(-3px);box-shadow:0 16px 50px rgba(45,212,191,.3)}
+.btn-hero-o{display:inline-flex;align-items:center;gap:10px;padding:16px 38px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);font-weight:400;font-size:1rem;border-radius:100px;text-decoration:none;transition:all .3s}
+.btn-hero-o:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px)}
+
+.scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.2);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;opacity:0;animation:fu 1s ease 1.4s forwards}
+.scroll-hint .ln{width:1px;height:48px;background:linear-gradient(to bottom,rgba(45,212,191,.4),transparent);animation:sLn 2.5s ease-in-out infinite}
+@keyframes sLn{0%,100%{opacity:.2}50%{opacity:.7}}
+@keyframes fu{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+/* Soft edge at bottom of hero */
+.hero-zone::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:200px;
+  background:linear-gradient(to bottom,transparent,var(--surface));
+  z-index:3;pointer-events:none;
+}
+
+/* ══════ M3 CONTENT SECTIONS ══════ */
+.m3-page{position:relative;z-index:4;background:var(--surface)}
+
+.sw{max-width:1100px;margin:0 auto;padding:6rem 2rem}
+.sw-lg{padding:8rem 2rem}
+
+.sl{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--primary);margin-bottom:1rem;font-weight:500}
+.st{font-family:'Fraunces',serif;font-size:clamp(2rem,4.5vw,3.4rem);font-weight:200;line-height:1.15;margin-bottom:1.2rem;color:var(--on-surface)}
+.st em{font-style:italic;color:var(--primary);font-weight:300}
+.sp{font-size:1.05rem;color:var(--on-surface-var);line-height:1.8;max-width:580px;font-weight:300}
+
+/* M3 Divider */
+.m3-divider{max-width:1100px;margin:0 auto;height:1px;background:var(--outline-var);opacity:.3}
+
+/* ══════ M3 FEATURE CARDS ══════ */
+.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem}
+.fc{
+  background:var(--surface-container);
+  border-radius:28px;
+  padding:2rem 1.8rem;
+  transition:all .4s cubic-bezier(.16,1,.3,1);
+  border:none;
+  position:relative;
+}
+.fc:hover{
+  background:var(--surface-container-high);
+  transform:translateY(-4px);
+  box-shadow:0 8px 24px var(--shadow),0 2px 8px var(--shadow-md);
+}
+.fc .ico{
+  width:52px;height:52px;border-radius:16px;
+  background:var(--primary-container);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;margin-bottom:1.2rem;
+}
+.fc h3{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:400;margin-bottom:.6rem;color:var(--on-surface)}
+.fc p{color:var(--on-surface-var);font-size:.9rem;line-height:1.65;font-weight:300}
+
+/* ══════ FRÍÐA — M3 tonal surface ══════ */
+.frida-wrap{
+  background:var(--inverse-surface);
+  color:#fff;
+  padding:0;
+  position:relative;
+  overflow:hidden;
+}
+.frida-wrap::before,.frida-wrap::after{
+  content:'';position:absolute;left:0;right:0;height:120px;z-index:2;
+}
+.frida-wrap::before{top:0;background:linear-gradient(to bottom,var(--surface),transparent)}
+.frida-wrap::after{bottom:0;background:linear-gradient(to top,var(--surface),transparent)}
+
+.frida-inner{position:relative;z-index:3}
+
+.frida-s{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.frida-vis{position:relative;display:flex;justify-content:center;align-items:center;min-height:400px}
+.f-orbit{position:absolute;border-radius:50%;border:1px solid rgba(45,212,191,.1);animation:orbSp 30s linear infinite}
+.f-orbit:nth-child(1){width:340px;height:340px}
+.f-orbit:nth-child(2){width:400px;height:400px;animation-direction:reverse;animation-duration:40s}
+.f-orbit .od{position:absolute;width:5px;height:5px;background:var(--teal);border-radius:50%;box-shadow:0 0 10px var(--teal)}
+@keyframes orbSp{to{transform:rotate(360deg)}}
+.f-ring{width:260px;height:260px;border-radius:50%;padding:3px;background:conic-gradient(var(--teal),var(--green),var(--blue),var(--purple),var(--teal));position:relative;z-index:2}
+.f-ring-in{width:100%;height:100%;border-radius:50%;background:#1C1B1F;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.f-ring-in img{width:100%;height:100%;object-fit:cover}
+.f-ph{font-size:4.5rem}
+.f-glow{position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(45,212,191,.1),transparent 70%);z-index:1;animation:gBr 5s ease-in-out infinite}
+@keyframes gBr{0%,100%{transform:scale(1);opacity:.4}50%{transform:scale(1.1);opacity:.7}}
+
+.frida-wrap .sl{color:var(--teal)}
+.frida-wrap .st{color:#fff}
+.frida-wrap .st em{color:var(--teal)}
+.frida-wrap .sp{color:rgba(255,255,255,.6)}
+
+.f-caps{display:flex;flex-direction:column;gap:1.5rem;margin-top:2.5rem}
+.f-cap{display:flex;gap:14px;align-items:flex-start}
+.f-cap-i{min-width:40px;height:40px;border-radius:12px;background:rgba(45,212,191,.1);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.f-cap h4{font-family:'Fraunces',serif;font-size:1rem;font-weight:400;margin-bottom:3px;color:#fff}
+.f-cap p{color:rgba(255,255,255,.55);font-size:.88rem;line-height:1.55;font-weight:300}
+
+/* ══════ TRIP PLANNER w/ ANIMATED SWAP ══════ */
+.plan-s{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+
+.plan-mock{
+  background:var(--surface-container);
+  border-radius:28px;
+  padding:1.5rem;
+  box-shadow:0 2px 12px var(--shadow);
+  position:relative;
+}
+
+.plan-days{position:relative}
+
+.pd{
+  padding:1rem 1.2rem;
+  border-radius:20px;
+  background:var(--surface);
+  margin-bottom:.6rem;
+  transition:all .6s cubic-bezier(.34,1.56,.64,1);
+  position:relative;
+  z-index:1;
+}
+.pd.swapping-up{
+  transform:translateY(calc(-100% - .6rem));
+  z-index:2;
+}
+.pd.swapping-down{
+  transform:translateY(calc(100% + .6rem));
+  z-index:2;
+}
+.pd.highlight{
+  background:var(--primary-container);
+  box-shadow:0 4px 16px rgba(13,107,94,.12);
+}
+
+.pd-l{font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:var(--primary);margin-bottom:.4rem;font-weight:500}
+.pd-t{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:400;margin-bottom:.3rem;color:var(--on-surface)}
+.pd-s{color:var(--on-surface-var);font-size:.82rem;font-weight:300}
+
+.plan-suggestion{
+  margin-top:.8rem;
+  padding:.8rem 1.2rem;
+  background:var(--primary-container);
+  border-radius:16px;
+  display:flex;align-items:center;gap:10px;
+  font-size:.82rem;color:var(--on-primary-container);
+  cursor:pointer;
+  transition:all .3s;
+  user-select:none;
+}
+.plan-suggestion:hover{box-shadow:0 2px 8px rgba(13,107,94,.15)}
+.plan-suggestion .sparkle{font-size:1.1rem}
+.plan-suggestion-text{flex:1}
+
+.swap-btn{
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  padding:6px 16px;
+  border-radius:100px;
+  font-size:.75rem;
+  font-weight:500;
+  cursor:pointer;
+  transition:all .2s;
+  font-family:'DM Sans',sans-serif;
+}
+.swap-btn:hover{background:#0A5A4E}
+.swap-btn.done{background:var(--secondary);pointer-events:none}
+
+.plan-status{
+  margin-top:.6rem;
+  font-size:.75rem;
+  color:var(--primary);
+  font-weight:500;
+  opacity:0;
+  transition:opacity .3s;
+  text-align:center;
+}
+.plan-status.show{opacity:1}
+
+/* ══════ ROAD TRIP — M3 card ══════ */
+.rt-section{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.rt-visual{
+  position:relative;border-radius:28px;overflow:hidden;height:380px;
+  background:linear-gradient(160deg,#1a2a25,#0a1a1a);
+  box-shadow:0 4px 20px var(--shadow-md);
+}
+.rt-road{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:3px;height:100%;background:linear-gradient(to top,var(--teal),transparent 70%);opacity:.3}
+.rt-pin{position:absolute;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.72rem;color:#8AAFA5;font-weight:300}
+.rt-pin .dot{width:10px;height:10px;background:var(--teal);border-radius:50%;box-shadow:0 0 12px var(--teal);animation:pulse 2s ease-in-out infinite}
+.rt-narr{position:absolute;bottom:1.2rem;left:1.2rem;right:1.2rem;background:rgba(6,15,15,.85);border:1px solid rgba(45,212,191,.12);border-radius:16px;padding:.8rem 1rem;backdrop-filter:blur(10px)}
+.rt-narr-head{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.rt-narr-name{font-family:'Fraunces',serif;font-size:.85rem;color:var(--teal);font-weight:400}
+.rt-narr-txt{color:#8AAFA5;font-size:.78rem;line-height:1.5;font-weight:300}
+
+/* ══════ CO-TRIPS & BOARDS — M3 ══════ */
+.soc-g{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:3rem}
+.soc-c{
+  background:var(--surface-container);
+  border-radius:28px;
+  padding:2.5rem 2rem;
+  transition:all .4s cubic-bezier(.16,1,.3,1);
+}
+.soc-c:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--shadow)}
+.soc-c .emo{font-size:2.2rem;margin-bottom:1.2rem}
+.soc-c h3{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:300;margin-bottom:.8rem;color:var(--on-surface)}
+.soc-c p{color:var(--on-surface-var);font-size:.95rem;line-height:1.7;font-weight:300}
+.mf{margin-top:1.2rem;display:flex;flex-direction:column;gap:.5rem}
+.mf-i{display:flex;align-items:center;gap:10px;color:var(--on-surface-var);font-size:.85rem;font-weight:300}
+.mf-i .ck{color:var(--primary);font-weight:600}
+
+/* ══════ QUOTE — M3 ══════ */
+.quote-s{text-align:center;padding:8rem 2rem;position:relative}
+.qm{font-family:'Fraunces',serif;font-size:5rem;color:var(--primary);line-height:.5;margin-bottom:1.5rem;opacity:.15}
+.bq{font-family:'Fraunces',serif;font-size:clamp(1.5rem,3vw,2.4rem);font-weight:200;font-style:italic;line-height:1.5;max-width:800px;margin:0 auto;color:var(--on-surface)}
+.bq em{color:var(--primary);font-weight:300}
+
+/* ══════ FINAL CTA — back to dark ══════ */
+.final-wrap{
+  background:var(--void);
+  position:relative;
+  overflow:hidden;
+}
+.final-wrap::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:160px;
+  background:linear-gradient(to bottom,var(--surface),var(--void));
+  z-index:1;
+}
+.final-aurora{position:absolute;inset:0;pointer-events:none}
+.final-aurora .fa-blob{position:absolute;border-radius:50%;filter:blur(100px);animation:aBr 14s ease-in-out infinite}
+.final-aurora .fa-blob:nth-child(1){width:600px;height:200px;background:linear-gradient(135deg,var(--teal),var(--green),transparent);top:30%;left:10%}
+.final-aurora .fa-blob:nth-child(2){width:400px;height:150px;background:linear-gradient(135deg,var(--blue),var(--purple),transparent);top:40%;right:5%;animation-delay:5s}
+
+.final{position:relative;z-index:2;text-align:center;padding:12rem 2rem 8rem}
+.final h2{font-family:'Fraunces',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:200;line-height:1.05;margin-bottom:1.5rem;color:#fff}
+.final h2 em{font-style:italic;background:linear-gradient(135deg,var(--teal),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:300}
+.final>p{color:rgba(255,255,255,.5);font-size:1.1rem;margin-bottom:3rem;font-weight:300}
+.final-m{font-family:'Fraunces',serif;font-style:italic;font-weight:200;color:rgba(255,255,255,.2);font-size:1rem;margin-top:3rem;letter-spacing:.1em}
+
+/* ══════ FOOTER ══════ */
+footer{background:var(--void);border-top:1px solid rgba(255,255,255,.05);padding:2.5rem 2rem}
+.ft-in{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.ft-b{font-family:'Fraunces',serif;font-size:1.1rem;font-style:italic;font-weight:300;color:rgba(255,255,255,.7)}
+.ft-l{display:flex;gap:2rem}
+.ft-l a{color:rgba(255,255,255,.3);text-decoration:none;font-size:.8rem;transition:color .3s}
+.ft-l a:hover{color:var(--teal)}
+.ft-c{color:rgba(255,255,255,.15);font-size:.72rem}
+
+/* ══════ REVEAL ══════ */
+.rv{opacity:0;transform:translateY(40px);transition:all .9s cubic-bezier(.16,1,.3,1)}
+.rv.vis{opacity:1;transform:translateY(0)}
+.rv-d1{transition-delay:.1s}.rv-d2{transition-delay:.2s}.rv-d3{transition-delay:.3s}
+
+/* ══════ RESPONSIVE ══════ */
+@media(max-width:960px){
+  .frida-s,.plan-s,.rt-section{grid-template-columns:1fr;gap:3rem}
+  .frida-vis,.plan-mock,.rt-visual{order:-1}
+  .fg{grid-template-columns:1fr 1fr}
+  .soc-g{grid-template-columns:1fr}
+  .f-ring{width:200px;height:200px}
+  .f-orbit:nth-child(1){width:260px;height:260px}
+  .f-orbit:nth-child(2){width:320px;height:320px}
+  .sw{padding:5rem 1.5rem}
+}
+@media(max-width:600px){
+  .fg{grid-template-columns:1fr}
+  .ft-in{flex-direction:column;gap:1.2rem}
+  .h-btns{flex-direction:column;align-items:center}
+  .rt-visual{height:300px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ DARK HERO ══════ -->
+<div class="hero-zone">
+  <div class="aurora-sys">
+    <div class="a-layer" data-s="0.2"><div class="a-blob"></div><div class="a-blob"></div></div>
+    <div class="a-layer" data-s="0.4"><div class="a-blob"></div></div>
+    <div class="a-layer" data-s="0.6"><div class="a-blob"></div></div>
+  </div>
+  <div class="stars" id="stars"></div>
+
+  <div class="hero-content">
+    <div class="h-badge"><span class="dot"></span> Coming Soon to the App Store</div>
+    <h1><em>Friður</em></h1>
+    <p class="h-pron">/ˈfrɪː.ðʏr/ — peace &amp; beauty in Icelandic</p>
+    <p class="h-sub">Everything you need to experience Iceland — live weather, aurora forecasts, curated places, smart trip planning, and an AI companion who knows the island like a local.</p>
+    <div class="h-btns">
+      <a href="#dl" class="btn-hero">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download for iOS
+      </a>
+      <a href="#frida" class="btn-hero-o">Meet Fríða</a>
+    </div>
+    <div class="scroll-hint"><div class="ln"></div>Explore</div>
+  </div>
+</div>
+
+<!-- ══════ M3 CONTENT ══════ -->
+<div class="m3-page">
+
+  <!-- Features -->
+  <div class="sw sw-lg" id="features">
+    <p class="sl rv">Everything at your fingertips</p>
+    <h2 class="st rv">Iceland is extraordinary.<br>Your travel app should be too.</h2>
+    <p class="sp rv">Real-time data, smart recommendations, and tools that make the difference between a trip and an <em style="color:var(--primary)">experience</em>.</p>
+    <div class="fg">
+      <div class="fc rv rv-d1"><div class="ico">⛅</div><h3>Live Weather</h3><p>Hyper-local conditions everywhere. Wind chill, precipitation timing, golden hour, and 6-hour forecasts for every region.</p></div>
+      <div class="fc rv rv-d2"><div class="ico">✨</div><h3>Aurora Forecasts</h3><p>Real-time Kp index, solar wind speed, cloud cover, and probability estimates. Know when and where to look.</p></div>
+      <div class="fc rv rv-d3"><div class="ico">🛣</div><h3>Road Conditions</h3><p>Every route updated live. Ice warnings, closures, wind alerts, and smart detour suggestions.</p></div>
+      <div class="fc rv rv-d1"><div class="ico">📌</div><h3>Curated Places</h3><p>Handpicked waterfalls, hidden hot springs, black sand beaches, and the restaurants guidebooks miss.</p></div>
+      <div class="fc rv rv-d2"><div class="ico">🌋</div><h3>Volcanic Activity</h3><p>Live earthquake data, volcano monitoring, and eruption alerts. Stay informed about Iceland's natural forces.</p></div>
+      <div class="fc rv rv-d3"><div class="ico">🇮🇸</div><h3>Icelandic Translator</h3><p>AI-powered pronunciation. Hear exactly how to say place names and common phrases like a local.</p></div>
+    </div>
+  </div>
+
+  <div class="m3-divider"></div>
+
+  <!-- Trip Planner with animated swap -->
+  <div class="sw sw-lg" id="planner">
+    <div class="plan-s">
+      <div class="plan-mock rv">
+        <div class="plan-days" id="planDays">
+          <div class="pd" id="day1" data-day="1">
+            <div class="pd-l">Day 1 — Friday</div>
+            <div class="pd-t">Golden Circle Adventure</div>
+            <div class="pd-s">Thingvellir → Geysir → Gullfoss → Secret Lagoon</div>
+          </div>
+          <div class="pd" id="day2" data-day="2">
+            <div class="pd-l">Day 2 — Saturday</div>
+            <div class="pd-t">South Coast &amp; Waterfalls</div>
+            <div class="pd-s">Seljalandsfoss → Skógafoss → Reynisfjara → Vík</div>
+          </div>
+          <div class="pd" id="day3" data-day="3">
+            <div class="pd-l">Day 3 — Sunday</div>
+            <div class="pd-t">Glacier Lagoon &amp; Diamond Beach</div>
+            <div class="pd-s">Jökulsárlón → Diamond Beach → Svínafellsjökull</div>
+          </div>
+        </div>
+        <div class="plan-suggestion" id="swapSuggestion">
+          <span class="sparkle">✨</span>
+          <span class="plan-suggestion-text">Fríða suggests: Swap Day 2 and 3 — better weather on the south coast Sunday</span>
+          <button class="swap-btn" id="swapBtn">Apply</button>
+        </div>
+        <div class="plan-status" id="planStatus">✓ Itinerary updated! Route optimized for weather.</div>
+      </div>
+      <div>
+        <p class="sl rv">Smart trip planning</p>
+        <h2 class="st rv">AI-powered itineraries that <em>adapt</em> to Iceland</h2>
+        <p class="sp rv">Tell us your dates, interests, and travel style. Our customized engine builds optimized day-by-day itineraries around your preferences — then keeps improving them.</p>
+        <div class="f-caps" style="margin-top:2rem">
+          <div class="f-cap rv"><div class="f-cap-i" style="background:var(--primary-container)">🧠</div><div><h4>Preference Engine</h4><p style="color:var(--on-surface-var)">Waterfalls or hot springs? Photography or adventure? Your trip, your style.</p></div></div>
+          <div class="f-cap rv"><div class="f-cap-i" style="background:var(--primary-container)">🔄</div><div><h4>Real-Time Adaptation</h4><p style="color:var(--on-surface-var)">Weather changes, road closures — your plan adjusts before problems happen.</p></div></div>
+          <div class="f-cap rv"><div class="f-cap-i" style="background:var(--primary-container)">📍</div><div><h4>Route Optimization</h4><p style="color:var(--on-surface-var)">Respects driving times, daylight hours, and logical flow. No backtracking.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="m3-divider"></div>
+
+  <!-- Road Trip -->
+  <div class="sw sw-lg">
+    <div class="rt-section">
+      <div>
+        <p class="sl rv">Hit the road</p>
+        <h2 class="st rv">Road Trip Mode.<br>Fríða rides <em>shotgun</em>.</h2>
+        <p class="sp rv">Fríða becomes your narrated guide. She points out landmarks, warns about conditions, and tells the stories behind every place you pass.</p>
+        <div class="f-caps" style="margin-top:2rem">
+          <div class="f-cap rv"><div class="f-cap-i" style="background:var(--primary-container)">🚗</div><div><h4>Narrated Points of Interest</h4><p style="color:var(--on-surface-var)">Audio descriptions of waterfalls, mountains, and hidden gems as you drive past.</p></div></div>
+          <div class="f-cap rv"><div class="f-cap-i" style="background:var(--primary-container)">⚠️</div><div><h4>Ahead Alerts</h4><p style="color:var(--on-surface-var)">Wind warnings, icy patches, single-lane bridges — warned before you get there.</p></div></div>
+        </div>
+      </div>
+      <div class="rt-visual rv">
+        <div class="rt-road"></div>
+        <div class="rt-pin" style="bottom:20%;left:25%"><div class="dot"></div>Seljalandsfoss</div>
+        <div class="rt-pin" style="bottom:45%;left:60%"><div class="dot"></div>Skógafoss</div>
+        <div class="rt-pin" style="bottom:70%;left:35%"><div class="dot"></div>Reynisfjara</div>
+        <div class="rt-narr">
+          <div class="rt-narr-head"><span style="font-size:1.1rem">🇮🇸</span><span class="rt-narr-name">Fríða</span></div>
+          <div class="rt-narr-txt">"Coming up on your left is Seljalandsfoss — one of the few waterfalls you can walk behind. Park in the lot ahead."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="m3-divider"></div>
+
+  <!-- Co-trips & Boards -->
+  <div class="sw sw-lg" id="together">
+    <p class="sl rv">Travel together</p>
+    <h2 class="st rv">Share the adventure. Plan as a team.</h2>
+    <p class="sp rv">Invite travel companions, share discoveries, and build a trip everyone will remember.</p>
+    <div class="soc-g">
+      <div class="soc-c rv">
+        <div class="emo">👥</div>
+        <h3>Co-Trips</h3>
+        <p>Everyone sees the same itinerary, gets real-time updates, and can suggest changes. One trip, perfectly synchronized.</p>
+        <div class="mf"><div class="mf-i"><span class="ck">✓</span>Shared itinerary with live updates</div><div class="mf-i"><span class="ck">✓</span>Everyone gets road & weather alerts</div><div class="mf-i"><span class="ck">✓</span>Suggest changes, vote on plans</div></div>
+      </div>
+      <div class="soc-c rv rv-d2">
+        <div class="emo">💎</div>
+        <h3>Mood Boards</h3>
+        <p>Save places into beautiful collections. Hot springs, waterfalls, restaurants — organize your Iceland wishlist your way.</p>
+        <div class="mf"><div class="mf-i"><span class="ck">✓</span>Custom boards with your own style</div><div class="mf-i"><span class="ck">✓</span>Auto-suggested hidden gems</div><div class="mf-i"><span class="ck">✓</span>Share boards with travel partners</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="m3-divider"></div>
+
+  <!-- Quote -->
+  <section class="quote-s rv">
+    <div class="qm">"</div>
+    <p class="bq">Friður turned our Iceland trip from a list of places into an <em>unforgettable experience</em>. Fríða told us to skip our plan and chase a clearing in the clouds. We saw the northern lights that night.</p>
+  </section>
+
+</div><!-- end m3-page -->
+
+<!-- ══════ MEET FRÍÐA (dark band) ══════ -->
+<div class="frida-wrap" id="frida">
+  <div class="frida-inner">
+    <div class="sw sw-lg">
+      <div class="frida-s">
+        <div>
+          <p class="sl rv">Meet your guide</p>
+          <h2 class="st rv">This is Fríða.<br>Your AI travel companion who knows Iceland <em>like a local</em>.</h2>
+          <p class="sp rv">Talk to her by voice or text — anytime, anywhere. She checks live weather, knows your plans, monitors roads, and gives real advice. Like a knowledgeable Icelandic friend in your pocket.</p>
+          <div class="f-caps">
+            <div class="f-cap rv"><div class="f-cap-i">🎙</div><div><h4>Voice Conversations</h4><p>Speak naturally with Fríða in her warm Icelandic accent.</p></div></div>
+            <div class="f-cap rv"><div class="f-cap-i">🌤</div><div><h4>Live Awareness</h4><p>She knows weather, aurora, roads, and what it means for you right now.</p></div></div>
+            <div class="f-cap rv"><div class="f-cap-i">🗺</div><div><h4>Knows Your Trip</h4><p>Ask what's next, get nearby suggestions, or reroute when weather changes.</p></div></div>
+            <div class="f-cap rv"><div class="f-cap-i">💡</div><div><h4>Proactive Suggestions</h4><p>"The clouds are clearing at 11pm — best shot at northern lights this week."</p></div></div>
+          </div>
+        </div>
+        <div class="frida-vis rv">
+          <div class="f-glow"></div>
+          <div class="f-orbit"><div class="od" style="top:10%;left:50%"></div></div>
+          <div class="f-orbit"><div class="od" style="top:80%;left:10%"></div></div>
+          <div class="f-ring">
+            <div class="f-ring-in">
+              <!-- Replace: <img src="frida-avatar.png" alt="Fríða"> -->
+              <div class="f-ph">🇮🇸</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ FINAL CTA ══════ -->
+<div class="final-wrap" id="dl">
+  <div class="final-aurora">
+    <div class="fa-blob"></div>
+    <div class="fa-blob"></div>
+  </div>
+  <section class="final">
+    <h2 class="rv">Experience Iceland<br>the way it was <em>meant</em> to be</h2>
+    <p class="rv">Everything you need. Nothing you don't. One beautiful app.</p>
+    <div class="h-btns rv">
+      <a href="#" class="btn-hero">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download for iOS
+      </a>
+      <a href="mailto:josh.popsie@gmail.com" class="btn-hero-o">Get in Touch</a>
+    </div>
+    <p class="final-m rv">friður — peace &amp; beauty</p>
+  </section>
+</div>
+
+<footer>
+  <div class="ft-in">
+    <div class="ft-b">friður</div>
+    <div class="ft-l">
+      <a href="mailto:josh.popsie@gmail.com">Support</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+    <div class="ft-c">&copy; 2026 Friður. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+// Stars
+const SE=document.getElementById('stars');
+for(let i=0;i<100;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*80+'%';const z=(Math.random()*2+.5)+'px';s.style.width=z;s.style.height=z;s.style.animationDelay=Math.random()*5+'s';s.style.animationDuration=(Math.random()*4+3)+'s';SE.appendChild(s)}
+
+// Aurora parallax in hero
+const aLayers=document.querySelectorAll('.a-layer');
+let tk=false;
+function onScroll(){
+  const sY=window.scrollY;
+  aLayers.forEach(l=>{
+    const sp=parseFloat(l.dataset.s);
+    l.style.transform=`translateY(${sY*sp*.4}px)`;
+    l.style.filter=`hue-rotate(${sY/15}deg)`;
+  });
+  tk=false;
+}
+window.addEventListener('scroll',()=>{if(!tk){requestAnimationFrame(onScroll);tk=true}});
+
+// Scroll reveal
+const rvEls=document.querySelectorAll('.rv');
+const rvObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');rvObs.unobserve(e.target)}});
+},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+rvEls.forEach(el=>rvObs.observe(el));
+
+// Smooth anchor
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t)window.scrollTo({top:t.offsetTop-40,behavior:'smooth'});
+  });
+});
+
+// ══════ TRIP SWAP ANIMATION ══════
+const swapBtn=document.getElementById('swapBtn');
+const day2=document.getElementById('day2');
+const day3=document.getElementById('day3');
+const planStatus=document.getElementById('planStatus');
+const suggestion=document.getElementById('swapSuggestion');
+let swapped=false;
+
+// Auto-trigger swap when section scrolls into view
+const planObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting && !swapped){
+      setTimeout(()=>{
+        // Pulse the suggestion
+        suggestion.style.boxShadow='0 0 0 2px var(--primary)';
+        setTimeout(()=>suggestion.style.boxShadow='',1000);
+      },1500);
+    }
+  });
+},{threshold:.5});
+planObs.observe(document.getElementById('planDays'));
+
+swapBtn.addEventListener('click',()=>{
+  if(swapped) return;
+  swapped=true;
+  
+  // Animate swap
+  day2.classList.add('swapping-down');
+  day3.classList.add('swapping-up');
+  
+  setTimeout(()=>{
+    // Remove animations
+    day2.classList.remove('swapping-down');
+    day3.classList.remove('swapping-up');
+    
+    // Actually swap in DOM
+    const parent=day2.parentNode;
+    parent.insertBefore(day3,day2);
+    
+    // Update labels
+    day2.querySelector('.pd-l').textContent='Day 3 — Sunday';
+    day3.querySelector('.pd-l').textContent='Day 2 — Saturday';
+    
+    // Highlight swapped cards
+    day2.classList.add('highlight');
+    day3.classList.add('highlight');
+    
+    // Update button
+    swapBtn.textContent='Done ✓';
+    swapBtn.classList.add('done');
+    
+    // Show status
+    planStatus.classList.add('show');
+    
+    // Remove highlight after a moment
+    setTimeout(()=>{
+      day2.classList.remove('highlight');
+      day3.classList.remove('highlight');
+    },2000);
+    
+  },600);
+});
+</script>
+
+</body>
+</html>
